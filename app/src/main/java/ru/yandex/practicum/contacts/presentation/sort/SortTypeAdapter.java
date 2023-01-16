@@ -21,7 +21,7 @@ import ru.yandex.practicum.contacts.presentation.base.BaseListDiffCallback;
 import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
 import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
-public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHolder> implements ListDiffInterface {
+public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHolder> {
 
     private final AsyncListDiffer<SortTypeUI> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
@@ -57,11 +57,6 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
         differ.submitList(items);
     }
 
-    @Override
-    public boolean theSameAs(Object o) {
-        return false;
-    }
-
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemSortBinding binding;
@@ -94,25 +89,6 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
                 default:
                     throw new IllegalArgumentException("Not supported SortType");
             }
-        }
-    }
-
-    static class ListDiffCallback extends DiffUtil.ItemCallback<SortTypeUI> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return oldItem.getSortType() == newItem.getSortType();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Nullable
-        @Override
-        public Object getChangePayload(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return newItem;
         }
     }
 }
